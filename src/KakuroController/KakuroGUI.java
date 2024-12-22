@@ -110,7 +110,7 @@ public class KakuroGUI extends JFrame{
 
     }
     public JLabel createTimeLabel(){
-        timerLabel = new JLabel("Time Remaining: 10:00");
+        timerLabel = new JLabel("Thời Gian: 10:00");
         timerLabel.setFont(new Font("Chalkboard", Font.BOLD, 15));
         timerLabel.setForeground(Color.white);
         timerLabel.setAlignmentX(Component.CENTER_ALIGNMENT); // căn vị tri theo chieu ngang
@@ -137,7 +137,7 @@ public class KakuroGUI extends JFrame{
     private void updateTimerLabel(){
         int minutes = timeRemaining/60;
         int seconds = timeRemaining%60;
-        timerLabel.setText(String.format("Time Remaining: %02d:%02d", minutes, seconds));
+        timerLabel.setText(String.format("Thời Gian: %02d:%02d", minutes, seconds));
     }
     private void handleGameOver(){
         gameTimer.stop();
@@ -206,6 +206,7 @@ public class KakuroGUI extends JFrame{
     private JTextField createInputCell(int row, int col){
         JTextField cell = new JTextField();
         cell.setHorizontalAlignment(JTextField.CENTER);
+        cell.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cell.setFont(new Font("Arial", Font.BOLD, 20));
         if(game.getBoard()[row][col]>0){
             cell.setText(String.valueOf(game.getBoard()[row][col]));
@@ -220,8 +221,9 @@ public class KakuroGUI extends JFrame{
     private JButton createControlButton(int size){
         JButton checkButton = new DrawButton("image/rectangle.png", "image/rectangle (1).png");
         checkButton.setPreferredSize(new Dimension(150, 40));
-        checkButton.setText("Check Solution");
+        checkButton.setText("Kiểm Tra");
         checkButton.addActionListener(e->checkSolution(size));
+        checkButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         checkButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         return checkButton;
     }
@@ -268,5 +270,8 @@ public class KakuroGUI extends JFrame{
     public void dispose(){
             musicPlayer.stopMusic();
             super.dispose();
+    }
+    public int getTimeRemaining(){
+        return timeRemaining;
     }
 }
