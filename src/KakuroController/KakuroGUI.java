@@ -71,18 +71,18 @@ public class KakuroGUI extends JFrame{
         mainPanel.add(createCheck);
         mainPanel.add(Box.createVerticalStrut(20));
 
+        musicPlayer.setCurrentSong("music/chill.wav");
+        if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
         //Dang ki KeyEventDispatcher de bat phim o muc toan cuc
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
             @Override
             public boolean dispatchKeyEvent(KeyEvent e) {
-                if(e.getID()==KeyEvent.KEY_PRESSED){
-                    if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
-                        musicPlayer.toggleMusic("music/chill.wav");
-                        return true;
-                    }
-                    if(e.getKeyChar()==KeyEvent.VK_ESCAPE){
-                        showQuestion.showQuestionExit();
-                        return true;
+                if(!menu.isVisible()){
+                    if(e.getID()==KeyEvent.KEY_PRESSED){
+                        if(e.getKeyChar()==KeyEvent.VK_ESCAPE){
+                            showQuestion.showQuestionExit();
+                            return true;
+                        }
                     }
                 }
                 return false;
@@ -98,7 +98,7 @@ public class KakuroGUI extends JFrame{
         setFocusable(true);
         requestFocusInWindow();
         //set music
-        musicPlayer.playMusic("music/chill.wav");
+//        musicPlayer.playMusic("music/chill.wav");
 
     }
     public JLabel createTimeLabel(){
@@ -260,8 +260,8 @@ public class KakuroGUI extends JFrame{
         boardPanel.repaint();
     }
     public void dispose(){
-            musicPlayer.stopMusic();
-            super.dispose();
+//        musicPlayer.stopMusic();
+        super.dispose();
     }
     public int getTimeRemaining(){
         return timeRemaining;

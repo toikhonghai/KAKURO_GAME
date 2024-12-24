@@ -10,7 +10,8 @@ import java.util.Objects;
 public class MusicPlayer {
     private static MusicPlayer instance;
     private Clip clip;
-    private boolean isPlaying = false;
+    private boolean isPlaying = true;
+    private String currentSong = null;
 
     //Dảm bảo rằng chỉ có một thể hiện duy nhất của lớp được tạo
     public static synchronized MusicPlayer getInstance(){// tu khao synchronized chi cho phep 1 luong duoc chay tai 1 thoi diem
@@ -29,6 +30,7 @@ public class MusicPlayer {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             isPlaying = true;
             setVolume(0.7f);
+            System.out.println(currentSong + "1");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -51,12 +53,23 @@ public class MusicPlayer {
             volumeControl.setValue(gain);
         }
     }
-    public void toggleMusic(String filename){
+    public void toggleMusic(){
         if(isPlaying){
             stopMusic();
         }else{
-            playMusic(filename);
-            setVolume(0.7f);
+            playMusic(currentSong);
         }
+    }
+
+    public String getCurrentSong() {
+        return currentSong;
+    }
+
+    public void setCurrentSong(String currentSong) {
+        this.currentSong = currentSong;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
     }
 }

@@ -13,6 +13,7 @@ public class KakuroMenu extends JFrame {
     private KakuroGUI gamePlay;
     private BufferedImage backgroundImage;
     private MusicPlayer musicPlayer;
+
     public KakuroMenu(){
         musicPlayer = MusicPlayer.getInstance();
         setTitle("Kakuro Game");
@@ -21,14 +22,15 @@ public class KakuroMenu extends JFrame {
         setLocationRelativeTo(null);
         ImageIcon icon = new ImageIcon(getClass().getResource("image/icon.png"));
         setIconImage(icon.getImage());
-
+        musicPlayer.setCurrentSong("music/mainMenu.wav");
+        if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
         //Them KeyListener de bat su kien phim 'M'
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
             @Override
             public boolean dispatchKeyEvent(KeyEvent e) {
                 if(e.getID()==KeyEvent.KEY_PRESSED){
                     if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
-                        musicPlayer.toggleMusic("music/mainMenu.wav");
+                        musicPlayer.toggleMusic();
                         return true;
                     }
                 }
@@ -106,7 +108,7 @@ public class KakuroMenu extends JFrame {
             if(gamePlay != null){
                 gamePlay.dispose();
             }
-            musicPlayer.stopMusic();
+//            musicPlayer.stopMusic();
             gamePlay = new KakuroGUI(size, level, this);
             gamePlay.setVisible(true);
             setVisible(false);
@@ -148,14 +150,14 @@ public class KakuroMenu extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 if(gamePlay!=null){
-                    musicPlayer.stopMusic();
+//                    musicPlayer.stopMusic();
                     gamePlay.dispose();
                 }
-                musicPlayer.stopMusic();
+//                musicPlayer.stopMusic();
                 dispose();
             }
         });
-        musicPlayer.playMusic("music/mainMenu.wav");
+//        musicPlayer.playMusic("music/mainMenu.wav");
     }
     private void showRulesDialog(){
         JDialog rulesDialog = new JDialog(this, "Luật chơi Kakuro", true);
@@ -172,18 +174,18 @@ public class KakuroMenu extends JFrame {
 
         JTextArea rulesText = new JTextArea(
                 "1. Mục tiêu:\n" +
-                "   - Điền các số từ 1 đến 9 vào các ô trống(ô màu trắng)\n\n" +
-                "2. Các số trong ô màu xám là tổng của dãy số cần điền:\n" +
-                "   - Số phía trên: Tổng của các số trong cột bên dưới\n" +
-                "   - Số bên trái: Tổng của các số trong hàng bên phải\n\n" +
-                "3. Quy tắc quan trọng:\n" +
-                "   - Không được lặp lại số trong cùng một dãy số\n" +
-                "   - Mỗi tổng phải sử dụng các chữ số khác nhau\n" +
-                "   - Chỉ được sử dụng các số từ 1 đến 9\n\n" +
-                "4. Mẹo chơi:\n" +
-                "   - Bắt đầu với các ô có tổng nhỏ hoặc ít khả năng\n" +
-                "   - Tìm các tổng bắt buộc phải sử dụng một số cụ thể\n" +
-                "   - Sử dụng phương pháp loại trừ để tìm số phù hợp"
+                        "   - Điền các số từ 1 đến 9 vào các ô trống(ô màu trắng)\n\n" +
+                        "2. Các số trong ô màu xám là tổng của dãy số cần điền:\n" +
+                        "   - Số phía trên: Tổng của các số trong cột bên dưới\n" +
+                        "   - Số bên trái: Tổng của các số trong hàng bên phải\n\n" +
+                        "3. Quy tắc quan trọng:\n" +
+                        "   - Không được lặp lại số trong cùng một dãy số\n" +
+                        "   - Mỗi tổng phải sử dụng các chữ số khác nhau\n" +
+                        "   - Chỉ được sử dụng các số từ 1 đến 9\n\n" +
+                        "4. Mẹo chơi:\n" +
+                        "   - Bắt đầu với các ô có tổng nhỏ hoặc ít khả năng\n" +
+                        "   - Tìm các tổng bắt buộc phải sử dụng một số cụ thể\n" +
+                        "   - Sử dụng phương pháp loại trừ để tìm số phù hợp"
         );
         rulesText.setEditable(false); //Khong the chinh sua
         rulesText.setWrapStyleWord(true); //Xuong dong van giua nguyen tu
