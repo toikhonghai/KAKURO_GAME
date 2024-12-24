@@ -117,10 +117,10 @@ public class MessageWindow {
     }
     public void showMessageFalseSolution(){
         JDialog dialog = new JDialog(gameFrame, "Giải Pháp Sai", true);
-        dialog.setSize(350, 200);
+        dialog.setSize(320, 160);
         dialog.setLocationRelativeTo(gameFrame);
         dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
-        dialog.add(Box.createVerticalStrut(40));
+        dialog.add(Box.createVerticalStrut(20));
 
         JLabel label = new JLabel("Giải Pháp Của Bạn Sai. Thử Lại!", JLabel.CENTER);
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -140,20 +140,24 @@ public class MessageWindow {
         });
         buttonPanel.add(button);
         dialog.add(buttonPanel);
-        dialog.add(Box.createVerticalStrut(20));
+        dialog.add(Box.createVerticalStrut(30));
         dialog.setVisible(true);
     }
     public void showQuestionExit(){
         JDialog dialog = new JDialog(gameFrame, "Thoát trò chơi?", true);
         dialog.setSize(300, 150);
         dialog.setLocationRelativeTo(gameFrame);
-        dialog.setLayout(new BorderLayout(5, 5));
+        dialog.setLayout(new BoxLayout(dialog.getContentPane(), BoxLayout.Y_AXIS));
+        dialog.add(Box.createVerticalStrut(20));
 
         JLabel label = new JLabel("Bạn muốn tiếp tục không?", JLabel.CENTER);
-        dialog.add(label, BorderLayout.CENTER);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dialog.add(label);
+        dialog.add(Box.createVerticalStrut(20));
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
         JButton yes = new JButton("Yes");
+        yes.setAlignmentX(Component.CENTER_ALIGNMENT);
         yes.setCursor(new Cursor(Cursor.HAND_CURSOR));
         yes.setFocusPainted(false);
         yes.addActionListener(new ActionListener() {
@@ -163,6 +167,7 @@ public class MessageWindow {
             }
         });
         JButton no = new JButton("No");
+        no.setAlignmentX(Component.CENTER_ALIGNMENT);
         no.setCursor(new Cursor(Cursor.HAND_CURSOR));
         no.setFocusPainted(false);
         no.addActionListener(new ActionListener() {
@@ -178,7 +183,8 @@ public class MessageWindow {
         });
         buttonPanel.add(yes);
         buttonPanel.add(no);
-        dialog.add(buttonPanel, BorderLayout.SOUTH);
+        dialog.add(buttonPanel);
+        dialog.add(Box.createVerticalStrut(20));
         dialog.setVisible(true);
     }
     private boolean isMaxLevel(){

@@ -28,46 +28,46 @@ public class KakuroKeylistener extends KeyAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
-            showQuestionExit();
-        }
-        if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
-            musicPlayer.toggleMusic("music/chill.wav");
-        }
+//        if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
+//            showQuestionExit();
+//        }
+//        if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
+//            musicPlayer.toggleMusic("music/chill.wav");
+//        }
     }
-    private void showQuestionExit(){
-        JDialog dialog = new JDialog(gameFrame, "Thoát trò chơi?", true);
-        dialog.setSize(300, 150);
-        dialog.setLocationRelativeTo(gameFrame);
-        dialog.setLayout(new BorderLayout(5, 5));
-
-        JLabel label = new JLabel("Bạn muốn tiếp tục không?", JLabel.CENTER);
-        dialog.add(label, BorderLayout.CENTER);
-
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
-        JButton yes = new JButton("Yes");
-        yes.setFocusPainted(false);
-        yes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-            }
-        });
-        JButton no = new JButton("No");
-        no.setFocusPainted(false);
-        no.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-                gameFrame.dispose();
-                menu.setVisible(true);
-            }
-        });
-        buttonPanel.add(yes);
-        buttonPanel.add(no);
-        dialog.add(buttonPanel, BorderLayout.SOUTH);
-        dialog.setVisible(true);
-    }
+//    private void showQuestionExit(){
+//        JDialog dialog = new JDialog(gameFrame, "Thoát trò chơi?", true);
+//        dialog.setSize(300, 150);
+//        dialog.setLocationRelativeTo(gameFrame);
+//        dialog.setLayout(new BorderLayout(5, 5));
+//
+//        JLabel label = new JLabel("Bạn muốn tiếp tục không?", JLabel.CENTER);
+//        dialog.add(label, BorderLayout.CENTER);
+//
+//        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 20));
+//        JButton yes = new JButton("Yes");
+//        yes.setFocusPainted(false);
+//        yes.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                dialog.dispose();
+//            }
+//        });
+//        JButton no = new JButton("No");
+//        no.setFocusPainted(false);
+//        no.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                dialog.dispose();
+//                gameFrame.dispose();
+//                menu.setVisible(true);
+//            }
+//        });
+//        buttonPanel.add(yes);
+//        buttonPanel.add(no);
+//        dialog.add(buttonPanel, BorderLayout.SOUTH);
+//        dialog.setVisible(true);
+//    }
 
     @Override
     public void keyTyped(KeyEvent e){

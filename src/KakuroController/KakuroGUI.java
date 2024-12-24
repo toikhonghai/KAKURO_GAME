@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class KakuroGUI extends JFrame{
     private static final int CELL_SIZE = 60;
@@ -37,27 +38,9 @@ public class KakuroGUI extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
 
-        //Them KeyListener de bat su kien phim 'M'
-        addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
-                    musicPlayer.toggleMusic("music/chill.wav");
-                }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
-
         // Tao panel chinh
         try{
-            backgroundImage = ImageIO.read(getClass().getResource("image/board.png"));
+            backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("image/board.png")));
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -77,31 +60,40 @@ public class KakuroGUI extends JFrame{
         mainPanel.add(timer);
         mainPanel.add(Box.createVerticalStrut(20));
 
-        // Tao panel cho bang game
+        //Tao panel cho bang game
         createBoardPanel(size);
         mainPanel.add(boardPanel);
         mainPanel.add(Box.createVerticalStrut(20));
         add(mainPanel);
 
-        // Tao panel cho nut dieu khien
+        //Tao panel cho nut dieu khien
         JButton createCheck = createControlButton(size);
         mainPanel.add(createCheck);
         mainPanel.add(Box.createVerticalStrut(20));
 
-        //pack(); // Can chinh kich thuoc frame cho phu hop
-        setLocationRelativeTo(null); // Dat frame o giua man hinh
-        ImageIcon icon = new ImageIcon(getClass().getResource("image/icon.png"));
+        //Dang ki KeyEventDispatcher de bat phim o muc toan cuc
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
+            @Override
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                if(e.getID()==KeyEvent.KEY_PRESSED){
+                    if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
+                        musicPlayer.toggleMusic("music/chill.wav");
+                        return true;
+                    }
+                    if(e.getKeyChar()==KeyEvent.VK_ESCAPE){
+                        showQuestion.showQuestionExit();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        setLocationRelativeTo(null); //Dat frame o giua man hinh
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("image/icon.png")));
         setIconImage(icon.getImage());
         startTimer();
 
-        this.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode()==KeyEvent.VK_ESCAPE){
-                    showQuestion.showQuestionExit();
-                }
-            }
-        });
         //Dam bao co the nhan su kien phim
         setFocusable(true);
         requestFocusInWindow();
@@ -166,7 +158,7 @@ public class KakuroGUI extends JFrame{
     }
     private JPanel createWallCell(){
         try{
-            imageW = ImageIO.read(getClass().getResource("image/wall1.png"));
+            imageW = ImageIO.read(Objects.requireNonNull(getClass().getResource("image/wall1.png")));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -181,7 +173,7 @@ public class KakuroGUI extends JFrame{
     }
     private JPanel createSumCell(int row, int col){
         try{
-            imageS = ImageIO.read(getClass().getResource("image/square (1).png"));
+            imageS = ImageIO.read(Objects.requireNonNull(getClass().getResource("image/square (1).png")));
         }catch (Exception e){
             e.printStackTrace();
         }

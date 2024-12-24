@@ -5,6 +5,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.FloatControl;
 import java.io.BufferedInputStream;
+import java.util.Objects;
 
 public class MusicPlayer {
     private static MusicPlayer instance;
@@ -20,7 +21,7 @@ public class MusicPlayer {
         stopMusic();
         try{
             // Nhan luong dau vao
-            BufferedInputStream audioInputStream = new BufferedInputStream(getClass().getResourceAsStream(filename));
+            BufferedInputStream audioInputStream = new BufferedInputStream(Objects.requireNonNull(getClass().getResourceAsStream(filename)));
             AudioInputStream stream = AudioSystem.getAudioInputStream(audioInputStream);
             //Tao 1 clip va chay
             clip = AudioSystem.getClip();

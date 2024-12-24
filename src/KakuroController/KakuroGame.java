@@ -128,8 +128,7 @@ public class KakuroGame {
     public void createRandomBoardStructure() {
         board[0][0] = WALL; //Luôn luôn là tường ở góc bên trái
         double count = 0;
-        boolean isValid;
-        double maxWall = 0.2 * size * size;
+        double maxWall = 0.3 * size * size;
         // Tạo tường ngẫu nhiên
         for (int i = 1; i < size; i++) {
             for (int j = 1; j < size; j++) {
@@ -140,7 +139,7 @@ public class KakuroGame {
                         board[i][j] = EMPTY;
                         continue;
                     }
-                    count+=1;
+                    count+=1.0;
                 } else {
                     board[i][j] = EMPTY;
                 }
@@ -182,8 +181,8 @@ public class KakuroGame {
         // Xử lý các góc có 2 ô tổng liền kề
         for(int i = 1; i < size; i++) {
             for(int j = 1; j < size; j++) {
-                boolean hasTopSum = (i > 0 && board[i-1][j] == SUM_CELL);
-                boolean hasLeftSum = (j > 0 && board[i][j-1] == SUM_CELL);
+                boolean hasTopSum = (board[i-1][j] == SUM_CELL);
+                boolean hasLeftSum = (board[i][j-1] == SUM_CELL);
 
                 if(hasTopSum && hasLeftSum) {
                     boolean hasRightPath = (j+1 < size && board[i][j+1] == EMPTY);
@@ -212,6 +211,22 @@ public class KakuroGame {
                     }
                 }
             }
+        }
+        //Loai bo truong hop khong co o tong
+        boolean sumCellCheck = false;
+        outer:
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (board[i][j] == WALL &&
+                        ((i < size - 1 && board[i + 1][j] == EMPTY) ||
+                                (j < size - 1 && board[i][j + 1] == EMPTY))) {
+                    sumCellCheck = true;
+                    break outer;
+                }
+            }
+        }
+        if (sumCellCheck) {
+            initializeBoard();
         }
     }
 
@@ -362,15 +377,6 @@ public class KakuroGame {
             }
         }
         return count;
-    }
-    public void printBoardDebug(int row, int col) {
-        System.out.println("Board state around position (" + row + "," + col + "):");
-        for(int i = Math.max(0, row-1); i <= Math.min(size-1, row+1); i++) {
-            for(int j = Math.max(0, col-1); j <= Math.min(size-1, col+1); j++) {
-                System.out.print(board[i][j] + "\t");
-            }
-            System.out.println();
-        }
     }
 
     public boolean checkResult(int row, int col){

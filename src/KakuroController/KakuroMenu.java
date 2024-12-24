@@ -23,22 +23,16 @@ public class KakuroMenu extends JFrame {
         setIconImage(icon.getImage());
 
         //Them KeyListener de bat su kien phim 'M'
-        addKeyListener(new KeyListener() {
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
             @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
-                    musicPlayer.toggleMusic("music/mainMenu.wav");
+            public boolean dispatchKeyEvent(KeyEvent e) {
+                if(e.getID()==KeyEvent.KEY_PRESSED){
+                    if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
+                        musicPlayer.toggleMusic("music/mainMenu.wav");
+                        return true;
+                    }
                 }
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
+                return false;
             }
         });
         //Dam bao co the nhan su kien phim
@@ -71,8 +65,9 @@ public class KakuroMenu extends JFrame {
         difficultyCB.setCursor(new Cursor(Cursor.HAND_CURSOR));//khi di chuot vao chuyen thanh hinh ban tay
 
         JButton startButton = new DrawButton("image/rectangle.png", "image/rectangle (1).png");
-        startButton.setPreferredSize(new Dimension(230, 60));
+        startButton.setPreferredSize(new Dimension(200, 60));
         startButton.setText("Bắt Đầu");
+        startButton.setFont(new Font("Chalkboard", Font.BOLD, 12));
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         startButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         startButton.addActionListener(e->{
@@ -119,7 +114,7 @@ public class KakuroMenu extends JFrame {
 
         JLabel rulesLabel = new JLabel("Hướng dẫn");
         rulesLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        rulesLabel.setForeground(Color.BLUE);
+        rulesLabel.setForeground(new Color(0, 255, 255));
         rulesLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         rulesLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         rulesLabel.addMouseListener(new MouseAdapter() {
@@ -135,7 +130,7 @@ public class KakuroMenu extends JFrame {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                rulesLabel.setForeground(Color.BLUE);
+                rulesLabel.setForeground(new Color(0, 255, 255));
             }
         });
 
