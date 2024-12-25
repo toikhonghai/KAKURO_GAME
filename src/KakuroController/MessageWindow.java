@@ -44,7 +44,7 @@ public class MessageWindow {
                 menu.setVisible(true);
             }
         });
-        JButton new_game = new JButton("Trò Chơi Mới");
+        JButton new_game = new JButton("Chơi Lại");
         new_game.setCursor(new Cursor(Cursor.HAND_CURSOR));
         new_game.setFocusPainted(false);
         new_game.addActionListener(new ActionListener() {

@@ -245,19 +245,36 @@ public class KakuroGUI extends JFrame{
         int size = game.getSize();
         int level = game.getLevel();
         game = new KakuroGame(size, level);
-        game.generateKakuroRandom();
+//        game.generateKakuroRandom();
         updateBoard();
         startTimer();
     }
     private void updateBoard(){
-        mainPanel.remove(boardPanel);
-        boardPanel.removeAll();
+//        mainPanel.remove(boardPanel);
+//        boardPanel.removeAll();
+//        int size = game.getSize();
+//        cells = new JTextField[size][size];
+//        createBoardPanel(size);
+//        mainPanel.add(boardPanel, BorderLayout.CENTER);
+//        boardPanel.revalidate();
+//        boardPanel.repaint();
+        mainPanel.removeAll();
+        mainPanel.add(Box.createVerticalStrut(20));
+        mainPanel.add(timerLabel);
+        mainPanel.add(Box.createVerticalStrut(20));
+
         int size = game.getSize();
         cells = new JTextField[size][size];
         createBoardPanel(size);
-        mainPanel.add(boardPanel, BorderLayout.CENTER);
-        boardPanel.revalidate();
-        boardPanel.repaint();
+        mainPanel.add(boardPanel);
+        mainPanel.add(Box.createVerticalStrut(20));
+
+        JButton checkButton = createControlButton(size);
+        mainPanel.add(checkButton);
+        mainPanel.add(Box.createVerticalStrut(20));
+
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
     public void dispose(){
 //        musicPlayer.stopMusic();

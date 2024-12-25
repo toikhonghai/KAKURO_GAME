@@ -30,7 +30,6 @@ public class MusicPlayer {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             isPlaying = true;
             setVolume(0.7f);
-            System.out.println(currentSong + "1");
         }catch (Exception e){
             e.printStackTrace();
         }

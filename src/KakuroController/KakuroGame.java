@@ -231,7 +231,7 @@ public class KakuroGame {
     }
 
     private boolean checkConnectivity() {
-        // Tìm ô EMPTY đầu tiên
+        //Tim o EMPTY dau tien
         int startI = -1, startJ = -1;
         outer: for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -242,34 +242,27 @@ public class KakuroGame {
                 }
             }
         }
-
-        if (startI == -1) return true; // Không có ô EMPTY nào
-
-        // Sử dụng mảng visited để đánh dấu các ô đã thăm
+        if (startI == -1) return true; //Khong co o EMPTY nao
         boolean[][] visited = new boolean[size][size];
         floodFill(startI, startJ, visited);
-
-        // Kiểm tra xem có ô EMPTY nào chưa được thăm không
+        //kiem tra xem co o EMPTY nao chua duoc tham khong
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 if (board[i][j] == EMPTY && !visited[i][j]) {
-                    return false; // Tìm thấy ô EMPTY bị cô lập
+                    return false;
                 }
             }
         }
 
         return true;
     }
-
     private void floodFill(int i, int j, boolean[][] visited) {
         if (i < 0 || i >= size || j < 0 || j >= size ||
                 visited[i][j] || board[i][j] != EMPTY) {
             return;
         }
-
         visited[i][j] = true;
-
-        // Đệ quy sang 4 hướng
+        //De quy sang 4 huong
         floodFill(i - 1, j, visited);
         floodFill(i + 1, j, visited);
         floodFill(i, j - 1, visited);
@@ -319,7 +312,7 @@ public class KakuroGame {
                 if (fillAllCell(row, col + 1)) {
                     return true;
                 }
-                board[row][col] = EMPTY; // Backtrack
+                board[row][col] = EMPTY; //Backtrack
             }
         }
         return false;
@@ -353,10 +346,10 @@ public class KakuroGame {
         int cellSuggest = (int) (countValueCell()*0.3);
         double levelSuggets = 0;
         if((level>=4 && level<=6)){
-            levelSuggets = 0.1;
+            levelSuggets = 0;
         }
         else if(level>=1 && level<=2) levelSuggets = 0;
-        else if(level==3) levelSuggets = 0.1;
+        else if(level==3) levelSuggets = 0;
         for(int i = 0; i<size; i++){
             for(int j = 0; j<size; j++){
                 if(board[i][j]!=WALL && board[i][j]!=SUM_CELL){
