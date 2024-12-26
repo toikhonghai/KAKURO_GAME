@@ -177,13 +177,11 @@ public class MessageWindow {
         no.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                musicPlayer.stopMusic();
                 dialog.dispose();
                 gameFrame.dispose();
                 musicPlayer.setCurrentSong("music/mainMenu.wav");
                 if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
                 menu.setVisible(true);
-//                musicPlayer.playMusic("music/mainMenu.wav");
             }
         });
         buttonPanel.add(yes);

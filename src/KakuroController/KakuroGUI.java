@@ -2,6 +2,7 @@ package KakuroController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -48,7 +49,6 @@ public class KakuroGUI extends JFrame{
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-//                Graphics2D g2d = (Graphics2D) g;
                 g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
             }
         };
@@ -97,9 +97,6 @@ public class KakuroGUI extends JFrame{
         //Dam bao co the nhan su kien phim
         setFocusable(true);
         requestFocusInWindow();
-        //set music
-//        musicPlayer.playMusic("music/chill.wav");
-
     }
     public JLabel createTimeLabel(){
         timerLabel = new JLabel("Thời Gian: 10:00");
@@ -203,9 +200,41 @@ public class KakuroGUI extends JFrame{
         if(game.getBoard()[row][col]>0){
             cell.setText(String.valueOf(game.getBoard()[row][col]));
             cell.setEditable(false);
-            cell.setBackground(new Color(230, 230, 230));
+            cell.setBackground(new Color(255, 218, 185));
         }else{
             cell.setBackground(Color.WHITE);
+            //theo doi cac thay doi cua van ban
+            cell.getDocument().addDocumentListener(new javax.swing.event.DocumentListener(){
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    cell.setBackground(new Color(255, 218, 185));
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    if(cell.getText().isEmpty()){
+                        cell.setBackground(Color.WHITE);
+                    }
+                }
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+
+                }
+            });
+            cell.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    if(cell.isEditable() && cell.getText().isEmpty()){//doi mau khi re chuot vao
+                        cell.setBackground(new Color(255, 216, 185));
+                    }
+                }
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    if(cell.isEditable() && cell.getText().isEmpty()){
+                        cell.setBackground(Color.WHITE);
+                    }
+                }
+            });
         }
         cell.addKeyListener(new KakuroKeylistener(cell, game, row, col, this, menu));
         return cell;
@@ -250,14 +279,6 @@ public class KakuroGUI extends JFrame{
         startTimer();
     }
     private void updateBoard(){
-//        mainPanel.remove(boardPanel);
-//        boardPanel.removeAll();
-//        int size = game.getSize();
-//        cells = new JTextField[size][size];
-//        createBoardPanel(size);
-//        mainPanel.add(boardPanel, BorderLayout.CENTER);
-//        boardPanel.revalidate();
-//        boardPanel.repaint();
         mainPanel.removeAll();
         mainPanel.add(Box.createVerticalStrut(20));
         mainPanel.add(timerLabel);

@@ -150,14 +150,11 @@ public class KakuroMenu extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 if(gamePlay!=null){
-//                    musicPlayer.stopMusic();
                     gamePlay.dispose();
                 }
-//                musicPlayer.stopMusic();
                 dispose();
             }
         });
-//        musicPlayer.playMusic("music/mainMenu.wav");
     }
     private void showRulesDialog(){
         JDialog rulesDialog = new JDialog(this, "Luật chơi Kakuro", true);
