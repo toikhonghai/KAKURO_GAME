@@ -46,11 +46,11 @@ public class KakuroGame {
     public void createRandomBoardStructure() {
         board[0][0] = WALL; //Luôn luôn là tường ở góc bên trái
         double count = 0;
-        double maxWall = 0.3 * size * size;
+        double maxWall = 0.4 * size * size;
         // Tạo tường ngẫu nhiên
         for (int i = 1; i < size; i++) {
             for (int j = 1; j < size; j++) {
-                if ((count<=maxWall) && random.nextDouble() < 0.3) {
+                if ((count<=maxWall) && random.nextDouble() < 0.4) {
                     // Thử đặt tường và kiểm tra kết nối
                     board[i][j] = WALL;
                     if (!checkConnectivity()) {

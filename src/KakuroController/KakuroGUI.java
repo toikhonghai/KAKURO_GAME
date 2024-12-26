@@ -298,7 +298,6 @@ public class KakuroGUI extends JFrame{
         mainPanel.repaint();
     }
     public void dispose(){
-//        musicPlayer.stopMusic();
         super.dispose();
     }
     public int getTimeRemaining(){
