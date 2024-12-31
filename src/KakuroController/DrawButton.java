@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 public class DrawButton extends JButton implements MouseListener {
     private BufferedImage normalImage;
@@ -13,8 +14,8 @@ public class DrawButton extends JButton implements MouseListener {
     private boolean isCheckPressed;
     public DrawButton(String normalPath, String pressedPath){
         try{
-            normalImage = ImageIO.read(getClass().getResource(normalPath));
-            pressedImage = ImageIO.read(getClass().getResource(pressedPath));
+            normalImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(normalPath)));
+            pressedImage = ImageIO.read(Objects.requireNonNull(getClass().getResource(pressedPath)));
         }catch (Exception e){
             e.printStackTrace();
         }

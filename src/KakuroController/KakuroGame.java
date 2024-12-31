@@ -7,12 +7,12 @@ public class KakuroGame {
     private static final int SUM_CELL = -2;
     private static final int EMPTY = 0;
 
-    private int size;
-    private int level;
-    private int[][] board;
-    private int[][] verticalSums;
-    private int[][] horizontalSums;
-    private Random random;
+    private final int size;
+    private final int level;
+    private final int[][] board;
+    private final int[][] verticalSums;
+    private final int[][] horizontalSums;
+    private final Random random;
 
     public KakuroGame(int size, int level){
         this.size = size;
@@ -39,6 +39,7 @@ public class KakuroGame {
         createRandomBoardStructure();
         fillAllCell(0, 0);
         calculateAndFillSum();
+        printBoard();
         //Tao goi y
         createSuggest();
     }
@@ -48,16 +49,16 @@ public class KakuroGame {
         double count = 0;
         double maxWall = 0.4 * size * size;
         // Tạo tường ngẫu nhiên
-        for (int i = 1; i < size; i++) {
-            for (int j = 1; j < size; j++) {
-                if ((count<=maxWall) && random.nextDouble() < 0.4) {
+        for(int i = 1; i < size; i++) {
+            for(int j = 1; j < size; j++) {
+                if((count<=maxWall) && random.nextDouble() < 0.4) {
                     // Thử đặt tường và kiểm tra kết nối
                     board[i][j] = WALL;
                     if (!checkConnectivity()) {
                         board[i][j] = EMPTY;
-                        continue;
+                    }else{
+                        count+=1.0;
                     }
-                    count+=1.0;
                 } else {
                     board[i][j] = EMPTY;
                 }
@@ -65,10 +66,10 @@ public class KakuroGame {
         }
 
         // Đảm bảo không có các ô trống đơn lẻ
-        for (int i = 1; i < size - 1; i++) {
-            for (int j = 1; j < size - 1; j++) {
-                if (board[i][j] == EMPTY) {
-                    if ((board[i - 1][j] == WALL && board[i][j - 1] == WALL) &&
+        for(int i = 1; i < size - 1; i++) {
+            for(int j = 1; j < size - 1; j++) {
+                if(board[i][j] == EMPTY) {
+                    if((board[i - 1][j] == WALL && board[i][j - 1] == WALL) &&
                             (board[i + 1][j] == WALL || board[i][j + 1] == WALL)) {
                         board[i][j] = WALL;
                         // Kiểm tra nếu việc đặt tường tạo ra vùng cô lập
@@ -81,9 +82,9 @@ public class KakuroGame {
         }
 
         // Đặt các ô tổng
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                if (board[i][j] == WALL &&
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                if(board[i][j] == WALL &&
                         ((i < size - 1 && board[i + 1][j] == EMPTY) ||
                                 (j < size - 1 && board[i][j + 1] == EMPTY))) {
                     // Thử chuyển thành ô tổng và kiểm tra kết nối
@@ -130,11 +131,12 @@ public class KakuroGame {
                 }
             }
         }
+
         //Loai bo truong hop khong co o tong
         boolean sumCellCheck = false;
         outer:
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
                 if (board[i][j] == WALL &&
                         ((i < size - 1 && board[i + 1][j] == EMPTY) ||
                                 (j < size - 1 && board[i][j + 1] == EMPTY))) {
@@ -143,7 +145,20 @@ public class KakuroGame {
                 }
             }
         }
-        if (sumCellCheck) {
+        if(sumCellCheck) {
+            initializeBoard();
+        }
+
+        //dam bao so o trong
+        double countEmpty = 0.0;
+        for(int i = 0; i < size; i++) {
+            for(int j = 0; j < size; j++) {
+                if(board[i][j]==EMPTY){
+                    countEmpty+=1.0;
+                }
+            }
+        }
+        if(countEmpty<0.4*size*size || countEmpty>0.6*size*size){
             initializeBoard();
         }
     }
@@ -350,5 +365,17 @@ public class KakuroGame {
 
     public int getLevel() {
         return level;
+    }
+    public void printBoard(){
+        for(int i = 0; i< size; i++){
+            for(int j = 0; j<size; j++){
+                if(board[i][j]>0){
+                    System.out.print(board[i][j]);
+                }else{
+                    System.out.print("  ");
+                }
+            }
+            System.out.println();
+        }
     }
 }

@@ -2,16 +2,14 @@ package KakuroController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MessageWindow {
     private final KakuroGame game;
     private final KakuroGUI gameFrame;
     private final KakuroMenu menu;
-    private MusicPlayer musicPlayer;
-    private int MAX_SCORE = 1000;
-    private int GAME_DURATION = 600;
+    private final MusicPlayer musicPlayer;
+    private final int MAX_SCORE = 1000;
+    private final int GAME_DURATION = 600;
     public MessageWindow(KakuroGame game, KakuroGUI gameFrame, KakuroMenu menu){
         musicPlayer = MusicPlayer.getInstance();
         this.game = game;
@@ -34,25 +32,19 @@ public class MessageWindow {
         JButton buttonExit = new JButton("Menu Chính");
         buttonExit.setCursor(new Cursor(Cursor.HAND_CURSOR));
         buttonExit.setFocusPainted(false);
-        buttonExit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-                gameFrame.dispose();
-                musicPlayer.setCurrentSong("music/mainMenu.wav");
-                if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
-                menu.setVisible(true);
-            }
+        buttonExit.addActionListener(e -> {
+            dialog.dispose();
+            gameFrame.dispose();
+            musicPlayer.setCurrentSong("music/mainMenu.wav");
+            if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
+            menu.setVisible(true);
         });
         JButton new_game = new JButton("Chơi Lại");
         new_game.setCursor(new Cursor(Cursor.HAND_CURSOR));
         new_game.setFocusPainted(false);
-        new_game.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-                gameFrame.startNewGame();
-            }
+        new_game.addActionListener(e -> {
+            dialog.dispose();
+            gameFrame.startNewGame();
         });
         buttonPanel.add(buttonExit);
         buttonPanel.add(new_game);
@@ -82,35 +74,26 @@ public class MessageWindow {
         JButton main_menu = new JButton("Menu Chính");
         main_menu.setCursor(new Cursor(Cursor.HAND_CURSOR));
         main_menu.setFocusPainted(false);
-        main_menu.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-                gameFrame.dispose();
-                musicPlayer.setCurrentSong("music/mainMenu.wav");
-                if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
-                menu.setVisible(true);
-            }
+        main_menu.addActionListener(e -> {
+            dialog.dispose();
+            gameFrame.dispose();
+            musicPlayer.setCurrentSong("music/mainMenu.wav");
+            if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
+            menu.setVisible(true);
         });
         JButton replay = new JButton("Chơi Lại");
         replay.setCursor(new Cursor(Cursor.HAND_CURSOR));
         replay.setFocusPainted(false);
-        replay.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-                gameFrame.startNewGame();
-            }
+        replay.addActionListener(e -> {
+            dialog.dispose();
+            gameFrame.startNewGame();
         });
         JButton nextLevel = new JButton("Cấp Tiếp");
         nextLevel.setCursor(new Cursor(Cursor.HAND_CURSOR));
         nextLevel.setFocusPainted(false);
-        nextLevel.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();;
-                startNextLevel();
-            }
+        nextLevel.addActionListener(e -> {
+            dialog.dispose();
+            startNextLevel();
         });
         buttonPanel.add(main_menu);
         buttonPanel.add(replay);
@@ -136,12 +119,7 @@ public class MessageWindow {
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setFocusPainted(false);
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-            }
-        });
+        button.addActionListener(e -> dialog.dispose());
         buttonPanel.add(button);
         dialog.add(buttonPanel);
         dialog.add(Box.createVerticalStrut(30));
@@ -164,25 +142,17 @@ public class MessageWindow {
         yes.setAlignmentX(Component.CENTER_ALIGNMENT);
         yes.setCursor(new Cursor(Cursor.HAND_CURSOR));
         yes.setFocusPainted(false);
-        yes.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-            }
-        });
+        yes.addActionListener(e -> dialog.dispose());
         JButton no = new JButton("No");
         no.setAlignmentX(Component.CENTER_ALIGNMENT);
         no.setCursor(new Cursor(Cursor.HAND_CURSOR));
         no.setFocusPainted(false);
-        no.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.dispose();
-                gameFrame.dispose();
-                musicPlayer.setCurrentSong("music/mainMenu.wav");
-                if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
-                menu.setVisible(true);
-            }
+        no.addActionListener(e -> {
+            dialog.dispose();
+            gameFrame.dispose();
+            musicPlayer.setCurrentSong("music/mainMenu.wav");
+            if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
+            menu.setVisible(true);
         });
         buttonPanel.add(yes);
         buttonPanel.add(no);

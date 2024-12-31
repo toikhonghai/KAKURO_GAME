@@ -6,13 +6,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class KakuroMenu extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 700;
     private KakuroGUI gamePlay;
     private BufferedImage backgroundImage;
-    private MusicPlayer musicPlayer;
+    private final MusicPlayer musicPlayer;
 
     public KakuroMenu(){
         musicPlayer = MusicPlayer.getInstance();
@@ -20,29 +21,26 @@ public class KakuroMenu extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon(getClass().getResource("image/icon.png"));
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getResource("image/icon.png")));
         setIconImage(icon.getImage());
         musicPlayer.setCurrentSong("music/mainMenu.wav");
         if(musicPlayer.isPlaying()) musicPlayer.playMusic(musicPlayer.getCurrentSong());
         //Them KeyListener de bat su kien phim 'M'
-        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent e) {
-                if(e.getID()==KeyEvent.KEY_PRESSED){
-                    if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
-                        musicPlayer.toggleMusic();
-                        return true;
-                    }
+        KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(e -> {
+            if(e.getID()==KeyEvent.KEY_PRESSED){
+                if(e.getKeyChar()=='m' || e.getKeyChar()=='M'){
+                    musicPlayer.toggleMusic();
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
         //Dam bao co the nhan su kien phim
         setFocusable(true);
         requestFocusInWindow();
 
         try{
-            backgroundImage = ImageIO.read(getClass().getResource("image/board1.png"));
+            backgroundImage = ImageIO.read(Objects.requireNonNull(getClass().getResource("image/board1.png")));
         }catch (IOException e){
             e.printStackTrace();
         }
